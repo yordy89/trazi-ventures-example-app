@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    ports:
+      - "5555:5555"
+    depends_on:
+      - mongodb
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/trazy_db
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=5555
+
+  mongodb:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+volumes:
+  mongodata:
